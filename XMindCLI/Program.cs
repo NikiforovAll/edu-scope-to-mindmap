@@ -1,8 +1,8 @@
 ﻿using System;
 using Autofac;
-using LearningScopeToMindmapClient;
-
-namespace LearningScopeToMindmapClientClient
+using XMindCLI;
+using XMindCLI.Infrastructure;
+namespace XMindCLI
 {
     class Program
     {

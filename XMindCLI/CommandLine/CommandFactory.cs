@@ -1,11 +1,11 @@
 using Autofac;
 using System;
-namespace LearningScopeToMindmapClient.CommandLine
+namespace XMindCLI.CommandLine
 {
     public class CommandFactory : ICommandFactory
     {
         private ILifetimeScope lifetimeScope;
-        
+
         public CommandFactory(ILifetimeScope lifetimeScope)
         {
             this.lifetimeScope = lifetimeScope;

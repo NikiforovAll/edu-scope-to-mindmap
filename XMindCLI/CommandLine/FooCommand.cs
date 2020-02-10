@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace LearningScopeToMindmapClient.CommandLine
+namespace XMindCLI.CommandLine
 {
     public class FooCommand : ICommand
     {

@@ -1,4 +1,4 @@
-namespace LearningScopeToMindmapClient.CommandLine
+namespace XMindCLI.CommandLine
 {
     public interface ICommand
     {

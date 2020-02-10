@@ -1,4 +1,4 @@
-namespace LearningScopeToMindmapClientClient
+namespace XMindCLI.Infrastructure
 {
     interface IApplication
     {

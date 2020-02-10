@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using CommandLine;
 
-namespace LearningScopeToMindmapClient.CommandLine
+namespace XMindCLI.CommandLine
 {
     [Verb("read", HelpText = "Read reports from configured input")]
     public class FooOptions: ICommandOptions

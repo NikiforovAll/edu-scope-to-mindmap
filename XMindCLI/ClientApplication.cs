@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using Autofac;
 using CommandLine;
-using LearningScopeToMindmapClient.CommandLine;
+using XMindCLI.CommandLine;
 using Serilog;
+using XMindCLI.Infrastructure;
 
-namespace LearningScopeToMindmapClientClient
+namespace XMindCLI
 {
     public class ClientApplication : IApplication, IStartable
     {

@@ -1,10 +1,10 @@
 using System;
 using Autofac;
-using LearningScopeToMindmapClient;
-using LearningScopeToMindmapClient.CommandLine;
+using XMindCLI;
+using XMindCLI.CommandLine;
 using Serilog;
 
-namespace LearningScopeToMindmapClientClient
+namespace XMindCLI.Infrastructure
 {
     public static class ContainerConfig
     {
@@ -25,12 +25,12 @@ namespace LearningScopeToMindmapClientClient
             builder.Register<ILogger>((c, p) =>
             {
                 return new LoggerConfiguration()
-                             .MinimumLevel.Debug()
-                             .WriteTo.Console()
-                             .WriteTo.File("logs/log.txt",
-                                 rollingInterval: RollingInterval.Day,
-                                 rollOnFileSizeLimit: true)
-                             .CreateLogger();
+                        .MinimumLevel.Debug()
+                        .WriteTo.Console()
+                        .WriteTo.File("logs/log.txt",
+                            rollingInterval: RollingInterval.Day,
+                            rollOnFileSizeLimit: true)
+                        .CreateLogger();
             }).SingleInstance();
             return builder;
         }
