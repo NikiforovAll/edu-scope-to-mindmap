@@ -9,13 +9,13 @@ namespace XMindCLI
         private static IContainer Container { get; set; }
         static void Main(string[] args)
         {
-            Container = ContainerConfig.Configure();
+            Container = Startup.Configure();
 
             using (var scope = Container.BeginLifetimeScope())
             {
                 var app = scope.Resolve<IApplication>();
                 app.Run(args);
-                Console.Read();
+                // Console.Read();
             }
         }
     }
