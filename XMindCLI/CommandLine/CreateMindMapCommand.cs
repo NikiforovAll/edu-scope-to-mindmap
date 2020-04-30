@@ -1,5 +1,6 @@
-﻿using Serilog;
-
+﻿using System.IO;
+using Serilog;
+using XMindAPI;
 namespace XMindCLI.CommandLine
 {
     public class CreateMindMapCommand : ICommand
@@ -10,9 +11,21 @@ namespace XMindCLI.CommandLine
             this.logger = logger;
         }
 
-        void ICommand.Execute<MindMapOptions>(MindMapOptions opts)
+        void ICommand.Execute<T>(T opts)
         {
-            logger.Information("MindMapCommand. Invoked!");
+            var options = opts as MindMapOptions;
+            var outPath = Path.Combine(options.Path, options.FileName)
+                .Replace("\\", "/");
+            logger.Information($"Request: {opts.Command}: from file {options.SourcePath} to destination file {outPath}");
+            var book = new XMindConfiguration()
+                .WithFileWriter(options.Path, zip: true)
+                .CreateWorkBook(options.FileName);
+            var rootTopic = book
+                .GetPrimarySheet()
+                .GetRootTopic();
+
+            rootTopic.Add(book.CreateTopic("Child"));
+            book.Save().GetAwaiter().GetResult();
         }
     }
 }

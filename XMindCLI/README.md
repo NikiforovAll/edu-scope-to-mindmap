@@ -1,8 +1,5 @@
-# learning-scope-to-mindmap
+# edu-scope-to-mindmaps
 
-## TODO
-
-* add xmindcsharp dependency
-* fix issue with commands mappings (verb based mapping doesn't work)
-
-## Useful resources
+```bash
+$ dotnet run --path ./ --name logs/test.xmind
+```

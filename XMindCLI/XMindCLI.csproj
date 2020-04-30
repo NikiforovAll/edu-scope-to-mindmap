@@ -12,7 +12,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="serilog.sinks.file" Version="4.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
-    <PackageReference Include="XMindCsharp" Version="0.3.0" />
+    <PackageReference Include="XMindCsharp" Version="0.4.0" />
   </ItemGroup>
 
   <ItemGroup>
