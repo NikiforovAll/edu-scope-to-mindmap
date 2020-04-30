@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="autofac" Version="4.9.1" />
     <PackageReference Include="CommandLineParser" Version="2.4.3" />
+    <PackageReference Include="EPPlus" Version="5.1.1" />
     <PackageReference Include="Serilog" Version="2.8.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="serilog.sinks.file" Version="4.0.0" />
