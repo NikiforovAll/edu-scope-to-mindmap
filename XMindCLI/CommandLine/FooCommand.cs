@@ -1,4 +1,7 @@
 ﻿using Serilog;
+using XMindAPI;
+using XMindAPI.Configuration;
+using XMindAPI.Writers;
 
 namespace XMindCLI.CommandLine
 {
@@ -14,6 +17,13 @@ namespace XMindCLI.CommandLine
         public void Execute()
         {
             logger.Information("FooCommand. Invoked!");
+            var writer = (InMemoryWriter)new InMemoryWriter()
+                .SetOutput(new InMemoryWriterOutputConfig(outputName: "root"));
+            //Arrange
+            var book = new XMindConfiguration()
+                .WriteTo
+                .Writer(writer)
+                .CreateWorkBook(workbookName: "test");
         }
     }
 }

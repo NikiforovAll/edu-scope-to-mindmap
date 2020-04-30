@@ -17,6 +17,10 @@
   <ItemGroup>
     <None Include="$(ProjectDir)\app.config" CopyToOutputDirectory="PreserveNewest" LinkBase="config\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\xmindcsharp\XMindAPI\XMindAPI.csproj" />
+  </ItemGroup>
   <PropertyGroup>
 		<Version>0.0.0</Version>
 		<Authors>Alexey Nikiforov</Authors>
