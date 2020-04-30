@@ -1,19 +1,16 @@
-using System;
-using Autofac;
-using LearningScopeToMindmapClient;
-using LearningScopeToMindmapClient.CommandLine;
+﻿using Autofac;
+using XMindCLI.CommandLine;
 using Serilog;
 
-namespace LearningScopeToMindmapClientClient
+namespace XMindCLI.Infrastructure
 {
-    public static class ContainerConfig
+    public static class Startup
     {
         public static IContainer Configure()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<ClientApplication>().As<IApplication>();
-            builder
-                .AddLogger()
+            builder.RegisterType<CommandLineApplication>().As<IApplication>();
+            builder.AddLogger()
                 .AddStartupHandler()
                 // .AddFileConfig()
                 .RegisterCommands();
@@ -25,12 +22,12 @@ namespace LearningScopeToMindmapClientClient
             builder.Register<ILogger>((c, p) =>
             {
                 return new LoggerConfiguration()
-                             .MinimumLevel.Debug()
-                             .WriteTo.Console()
-                             .WriteTo.File("logs/log.txt",
-                                 rollingInterval: RollingInterval.Day,
-                                 rollOnFileSizeLimit: true)
-                             .CreateLogger();
+                        .MinimumLevel.Debug()
+                        .WriteTo.Console()
+                        .WriteTo.File("logs/log.txt",
+                            rollingInterval: RollingInterval.Day,
+                            rollOnFileSizeLimit: true)
+                        .CreateLogger();
             }).SingleInstance();
             return builder;
         }
@@ -46,7 +43,7 @@ namespace LearningScopeToMindmapClientClient
 
         public static ContainerBuilder AddStartupHandler(this ContainerBuilder builder)
         {
-            builder.RegisterType<ClientApplication>()
+            builder.RegisterType<CommandLineApplication>()
                 .As<IStartable>()
                 .SingleInstance();
             return builder;
@@ -55,10 +52,10 @@ namespace LearningScopeToMindmapClientClient
         public static ContainerBuilder RegisterCommands(this ContainerBuilder builder)
         {
             builder.RegisterType<CommandFactory>().As<ICommandFactory>();
-            builder
-                .RegisterType<FooCommand>()
+            builder.RegisterType<CreateMindMapCommand>()
                 .As<ICommand>()
-                .WithParameter(new TypedParameter(typeof(FooOptions), null))
+                .WithParameter(
+                    new TypedParameter(typeof(MindMapOptions), null))
                 .InstancePerDependency();
             return builder;
         }

@@ -1,11 +1,11 @@
 using Autofac;
 using System;
-namespace LearningScopeToMindmapClient.CommandLine
+namespace XMindCLI.CommandLine
 {
     public class CommandFactory : ICommandFactory
     {
-        private ILifetimeScope lifetimeScope;
-        
+        private readonly ILifetimeScope lifetimeScope;
+
         public CommandFactory(ILifetimeScope lifetimeScope)
         {
             this.lifetimeScope = lifetimeScope;
@@ -13,9 +13,10 @@ namespace LearningScopeToMindmapClient.CommandLine
         public ICommand CreateCommand(string commandName, ICommandOptions opts)
         {
             ICommand command = null;
-            if(commandName.Equals(nameof(FooCommand), StringComparison.OrdinalIgnoreCase)){
-                command = lifetimeScope
-                    .Resolve<ICommand>(new TypedParameter(typeof(FooOptions), opts as FooOptions));
+            if (commandName.Equals(nameof(CreateMindMapCommand), StringComparison.OrdinalIgnoreCase))
+            {
+                command = lifetimeScope.Resolve<ICommand>(
+                    new TypedParameter(typeof(MindMapOptions), opts));
             }
             return command;
         }
