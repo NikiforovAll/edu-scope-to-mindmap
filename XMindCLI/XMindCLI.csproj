@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,11 +14,15 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="serilog.sinks.file" Version="4.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
-    <PackageReference Include="XMindCsharp" Version="0.4.0" />
+    <!-- <PackageReference Include="XMindCsharp" Version="0.4.0" /> -->
   </ItemGroup>
 
   <ItemGroup>
     <None Include="$(ProjectDir)\app.config" CopyToOutputDirectory="PreserveNewest" LinkBase="config\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\xmindcsharp\XMindAPI\XMindAPI.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <!-- <PackageId>edu-scope-to-mindmap</PackageId> -->

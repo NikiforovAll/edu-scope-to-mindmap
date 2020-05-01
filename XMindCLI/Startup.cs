@@ -1,6 +1,7 @@
 ﻿using Autofac;
 using XMindCLI.CommandLine;
 using Serilog;
+using XMindCLI.Services;
 
 namespace XMindCLI.Infrastructure
 {
@@ -12,8 +13,8 @@ namespace XMindCLI.Infrastructure
             builder.RegisterType<CommandLineApplication>().As<IApplication>();
             builder.AddLogger()
                 .AddStartupHandler()
-                // .AddFileConfig()
-                .RegisterCommands();
+                .RegisterCommands()
+                .RegisterType<MindMapBuilder>().As<IMindMapBuilder>().InstancePerDependency();
             return builder.Build();
         }
 
@@ -54,8 +55,7 @@ namespace XMindCLI.Infrastructure
             builder.RegisterType<CommandFactory>().As<ICommandFactory>();
             builder.RegisterType<CreateMindMapCommand>()
                 .As<ICommand>()
-                .WithParameter(
-                    new TypedParameter(typeof(MindMapOptions), null))
+                .WithParameter(new TypedParameter(typeof(MindMapOptions), null))
                 .InstancePerDependency();
             return builder;
         }

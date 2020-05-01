@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "XMindCLI": {
+      "commandName": "Project",
+      "commandLineArgs": "--path C:\\\\Nikiforov\\\\dev\\\\edu-scope-to-mindmap\\\\XMindCLI\\\\logs --name test.xmind --source-path C:\\\\Nikiforov\\\\dev\\\\edu-scope-to-mindmap\\\\XMindCLI\\\\logs\\\\input.xlsx",
+      "nativeDebugging": true
+    }
+  }
+}

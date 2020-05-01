@@ -1,18 +1,22 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.IO;
 using OfficeOpenXml;
 using Serilog;
 using XMindAPI;
+using XMindCLI.Services;
+
 namespace XMindCLI.CommandLine
 {
-    public class CreateMindMapCommand : ICommand
+    public partial class CreateMindMapCommand : ICommand
     {
         private readonly ILogger logger;
-        public CreateMindMapCommand(ILogger logger)
+        private readonly IMindMapBuilder mindMapBuilder;
+
+        public CreateMindMapCommand(ILogger logger, IMindMapBuilder mindMapBuilder)
         {
             this.logger = logger;
+            this.mindMapBuilder = mindMapBuilder;
         }
 
         void ICommand.Execute<T>(T opts)
@@ -24,15 +28,14 @@ namespace XMindCLI.CommandLine
             var book = new XMindConfiguration()
                 .WithFileWriter(options.Path, zip: true)
                 .CreateWorkBook(options.FileName);
-            var rootTopic = book
-                .GetPrimarySheet()
-                .GetRootTopic();
-            ReadPayload(options.SourcePath);
-            rootTopic.Add(book.CreateTopic("Child"));
+
+            var entries = ReadPayload(options.SourcePath);
+            LogGroupedEntries(entries);
+            mindMapBuilder.BuildMindMapContent(book, entries);
             book.Save().GetAwaiter().GetResult();
         }
 
-        private void ReadPayload(string path)
+        private IEnumerable<EduScopeEntry> ReadPayload(string path)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using var package = new ExcelPackage(new FileInfo(path));
@@ -57,8 +60,12 @@ namespace XMindCLI.CommandLine
                     Link = cells[i, 9].Value?.ToString(),
                 };
                 entries.Add(entry);
-                // logger.Debug($"{entry}");
             }
+            return entries;
+        }
+
+        private void LogGroupedEntries(IEnumerable<EduScopeEntry> entries)
+        {
             var groupedEntries = entries.ToLookup(entry => entry.Epic);
             foreach (var group in groupedEntries)
             {
@@ -70,30 +77,6 @@ namespace XMindCLI.CommandLine
                     logger.Debug($"\t\t{e}");
                 }
             }
-            // https://github.com/EPPlusSoftware/EPPlus.Sample.NetCore/blob/master/01-GettingStarted/GettingStartedSample.cs
-        }
-
-        private class EduScopeEntry
-        {
-            public string Name { get; set; }
-
-            [Range(0, 100)]
-            public int Progress { get; set; }
-
-            public string Status { get; set; }
-
-            public string Priority { get; set; }
-
-            public string Type { get; set; }
-
-            public string Epic { get; set; }
-
-            public string Link { get; set; }
-
-            public override string ToString() =>
-                // $"{Name} - {Status} - {Priority} - {Epic}";
-                $"{Name}";
-
         }
     }
 }
