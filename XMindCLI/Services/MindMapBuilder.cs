@@ -26,7 +26,7 @@ namespace XMindCLI.Services
                     subjectTopic.SetTitle(subjectToLearn.Name);
                     subjectTopic.HyperLink = subjectToLearn.Link;
                     subjectTopic.AddMarker(MarkerPriorityFactoryMethod(
-                        subjectToLearn.Priority.ToLower().Trim()));
+                        subjectToLearn.Priority?.ToLower()?.Trim() ?? "low"));
                     subjectTopic.AddMarker(MarkerProgressFactoryMethod(
                         subjectToLearn.Progress));
                     epicTopic.Add(subjectTopic);

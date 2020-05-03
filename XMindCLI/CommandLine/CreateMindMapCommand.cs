@@ -52,7 +52,7 @@ namespace XMindCLI.CommandLine
                 var entry = new EduScopeEntry()
                 {
                     Name = cells[i, 1].Value?.ToString(),
-                    Progress = int.Parse(cells[i, 4].Value?.ToString()),
+                    Progress = int.Parse((cells[i, 4].Value ?? 0).ToString()),
                     Status = cells[i, 5].Value?.ToString(),
                     Priority = cells[i, 6].Value?.ToString(),
                     Type = cells[i, 7].Value?.ToString(),
